@@ -74,7 +74,12 @@ require_once "connection.php";
       $check_match = count(array_intersect_key($_POST, $check));
       
       if($check_match == count($check)){
-         $result = mysqli_query($connect, "INSERT INTO post SET
+         $postTitle = $_POST["post_title"];
+         $postBody = $_POST["post_body"];
+
+         if(!empty($postTitle) && !empty($postBody)) 
+         {
+            $result = mysqli_query($connect, "INSERT INTO post SET
             post_id = '',
             post_title = '$_POST[post_title]',
             post_body = '$_POST[post_body]',
@@ -82,18 +87,27 @@ require_once "connection.php";
             post_time = '$_POST[post_time]',
             post_credit = '$_POST[post_credit]'");
             
-         if($result)
-         {
-            $response = array(
-               'status' => 1,
-               'message' =>'Insert Success'
-            );
+            if($result)
+            {
+               $response = array(
+                  'status' => 1,
+                  'message' =>'Insert Success'
+               );
+            }
+            else
+            {
+               $response = array(
+                  'status' => 0,
+                  'message' =>'Insert Failed.'
+               );
+            }
+
          }
          else
          {
             $response = array(
-               'status' => 0,
-               'message' =>'Insert Failed.'
+               'status' => 2,
+               'message' =>'Data tidak lengkap'
             );
          }
 
