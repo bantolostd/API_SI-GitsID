@@ -37,16 +37,12 @@ require_once "connection.php";
 
       while($row = mysqli_fetch_object($result))
       {
-         $data[] = $row;
+         $data = $row;
       }    
 
       if($data)
       {
-         $response = array(
-            'status' => 1,
-            'message' =>'Success',
-            'data' => $data
-         );               
+         $response = $data;             
       }
       else
       {
