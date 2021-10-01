@@ -68,30 +68,46 @@ require_once "connection.php";
 
       $check_match = count(array_intersect_key($_POST, $check));
       
+      
       if($check_match == count($check)){
-         $result = mysqli_query($connect, "INSERT INTO pengguna SET
-            pengguna_id = '',
-            pengguna_nama = '$_POST[pengguna_nama]',
-            pengguna_email = '$_POST[pengguna_email]',
-            pengguna_username = '$_POST[pengguna_username]',
-            pengguna_password = '$_POST[pengguna_password]',
-            pengguna_foto = '$_POST[pengguna_foto]'");
-            
-         if($result)
+         $penggunaNama = $_POST["pengguna_nama"];
+         $penggunaEmail = $_POST["pengguna_email"];
+         $penggunaUsername = $_POST["pengguna_username"];
+         $penggunaPassword = $_POST["pengguna_password"];
+         $penggunaFoto = $_POST["pengguna_foto"];
+
+         if(!empty($penggunaUsername) && !empty($penggunaPassword)) 
          {
-            $response = array(
-               'status' => 1,
-               'message' =>'Insert Success'
-            );
+            $result = mysqli_query($connect, "INSERT INTO pengguna SET
+               pengguna_id = '',
+               pengguna_nama = '$_POST[pengguna_nama]',
+               pengguna_email = '$_POST[pengguna_email]',
+               pengguna_username = '$_POST[pengguna_username]',
+               pengguna_password = '$_POST[pengguna_password]',
+               pengguna_foto = '$_POST[pengguna_foto]'");
+               
+            if($result)
+            {
+               $response = array(
+                  'status' => 1,
+                  'message' =>'Insert Success'
+               );
+            }
+            else
+            {
+               $response = array(
+                  'status' => 0,
+                  'message' =>'Insert Failed.'
+               );
+            }
          }
          else
          {
             $response = array(
-               'status' => 0,
-               'message' =>'Insert Failed.'
+               'status' => 2,
+               'message' => 'Data tidak lengkap'
             );
          }
-
       }
       else
       {
@@ -177,6 +193,68 @@ require_once "connection.php";
          $response=array(
             'status' => 0,
             'message' =>'Delete Fail.'
+         );
+      }
+
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+
+
+   function login() {
+      global $connect;   
+      $check = array(
+         'pengguna_username' => '',
+         'pengguna_password' => ''
+      );
+
+      $check_match = count(array_intersect_key($_POST, $check));
+      
+      if($check_match == count($check)){
+         $penggunaUsername = $_POST["pengguna_username"];
+         $penggunaPassword = $_POST["pengguna_password"];
+
+         if(!empty($penggunaUsername) && !empty($penggunaPassword)) 
+         {
+            $result = mysqli_query($connect, "SELECT * FROM pengguna
+            WHERE
+            pengguna_username = '$_POST[pengguna_username]'
+            AND
+            pengguna_password = '$_POST[pengguna_password]'");
+               
+            if($result->num_rows > 0)
+            {
+               while($row = mysqli_fetch_object($result))
+               {
+                  $data = $row;
+               } 
+               $response = array(
+                  'status' => 1,
+                  'message' =>'Login Success',
+                  'data' => $data
+               );
+            }
+            else
+            {
+               $response = array(
+                  'status' => 0,
+                  'message' =>'Username atau Password salah'
+               );
+            }
+         }
+         else
+         {
+            $response = array(
+               'status' => 2,
+               'message' =>'Data tidak lengkap'
+            );
+         }
+      }
+      else
+      {
+         $response = array(
+            'status' => 0,
+            'message' =>'Wrong Parameter'
          );
       }
 
