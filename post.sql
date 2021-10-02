@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Sep 2021 pada 00.23
+-- Waktu pembuatan: 02 Okt 2021 pada 16.24
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 8.0.7
 
@@ -41,7 +41,7 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_title`, `post_body`, `post_image`, `post_time`, `post_credit`) VALUES
-(1, 'Lorem, ipsum dolor sit amet consectetur adipisicin', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quibusdam nesciunt necessitatibus vel reiciendis? Eos quidem odio, cupiditate reprehenderit quis dignissimos eum tenetur dolorum, totam accusantium earum placeat nam culpa explicabo? Quam rem, excepturi laborum vero facere harum aut officiis maiores omnis ut! Nulla impedit reiciendis laboriosam consequuntur veniam labore!', 'default.jpg', '2021-09-15 19:21:10', 1),
+(1, 'Lorem, ipsum dolor sit amet consectetur adipisicin', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit quibusdam nesciunt necessitatibus vel reiciendis? Eos quidem odio, cupiditate reprehenderit quis dignissimos eum tenetur dolorum, totam accusantium earum placeat nam culpa explicabo? Quam rem, excepturi laborum vero facere harum aut officiis maiores omnis ut! Nulla impedit reiciendis laboriosam consequuntur veniam labore!', 'post_default.jpg', '2021-09-15 19:21:10', 1),
 (2, 'Lorem ipsum dolor sit amet consectetur adipisicing', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat earum tenetur necessitatibus. Cumque, quibusdam accusamus. Sunt illum nemo, accusantium excepturi quos vel repellendus corporis corrupti nisi. Adipisci esse praesentium officiis assumenda, unde laudantium similique, et vero numquam cumque illo id.', 'default.jpg', '2021-09-16 14:23:28', 1),
 (3, 'Lorem ipsum dolor sit amet consectetur adipisicing', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, esse. Nisi itaque illo error at animi aliquid fugit deserunt eaque, labore odit eligendi commodi ratione placeat? Veritatis porro, molestiae libero quas debitis blanditiis voluptates nesciunt?', 'default.jpg', '2021-09-23 19:23:55', 1),
 (4, 'Lorem ipsum dolor sit amet.', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque inventore similique iure quibusdam. Commodi velit cupiditate dignissimos aut magnam aliquid eos beatae? Dolorem quo earum eum a, ratione aperiam cum voluptas placeat nisi sunt temporibus. Officiis ratione eveniet nam necessitatibus sunt fugit facilis!', 'default.jpg', '2021-09-24 10:26:07', 1),
@@ -67,7 +67,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT untuk tabel `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

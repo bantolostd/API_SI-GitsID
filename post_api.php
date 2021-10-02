@@ -10,17 +10,27 @@ require_once "connection.php";
       global $connect;      
       $query = $connect->query("SELECT * FROM post");   
 
-      while($row = mysqli_fetch_object($query))
+      if($query->num_rows > 0)
       {
-         $data[] =$row;
+         while($row = mysqli_fetch_object($query))
+         {
+            $data[] =$row;
+         }
+
+         $response=array(
+            'status' => 1,
+            'message' =>'Success',
+            'data' => $data
+            );
       }
-
-      $response=array(
-         'status' => 1,
-         'message' =>'Success',
-         'data' => $data
+      else
+      {
+         $response = array(
+            'status' => 0,
+            'message' =>'Data tidak ditemukan!'
          );
-
+      }
+      
       header('Content-Type: application/json');
       echo json_encode($response);
    }   
@@ -35,20 +45,24 @@ require_once "connection.php";
       $query = "SELECT * FROM post WHERE post_id = '$post_id'";      
       $result = $connect->query($query);
 
-      while($row = mysqli_fetch_object($result))
+      if($result->num_rows > 0)
       {
-         $data = $row;
-      }    
 
-      if($data)
-      {
-         $response = $data;         
+         while($row = mysqli_fetch_object($result))
+         {
+            $data = $row;
+         }    
+
+         if($data)
+         {
+            $response = $data;         
+         }
       }
       else
       {
          $response = array(
             'status' => 0,
-            'message' =>'No Data Found'
+            'message' =>'Data tidak ditemukan!'
          );
       }
       
