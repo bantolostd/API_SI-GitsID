@@ -188,6 +188,53 @@ require_once "connection.php";
       echo json_encode($response);
    }
 
+   function update_pengguna_hardware()
+   {
+      global $connect;
+      if (!empty($_POST["pengguna_id"])) {
+         $pengguna_id = $_POST["pengguna_id"];      
+      }   
+      
+      $check = array(
+        'pengguna_hardware_id' => ''
+      );
+
+      $check_match = count(array_intersect_key($_POST, $check));         
+      if($check_match == count($check)){
+      
+         $result = mysqli_query($connect, "UPDATE pengguna SET               
+            pengguna_hardware_id = '$_POST[pengguna_hardware_id]'
+            WHERE pengguna_id = '$pengguna_id'");
+      
+         if($result) 
+         {
+            $response=array(
+               'status' => 1,
+               'message' =>$pengguna_id                  
+            );
+         }
+         else
+         {
+            $response=array(
+               'status' => 0,
+               'message' =>'Update Failed'                  
+            );
+         }
+         
+      }
+      else
+      {
+         $response=array(
+                  'status' => 0,
+                  'message' =>'Wrong Parameter',
+                  'data'=> $pengguna_id
+               );
+      }
+
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+
    function delete_pengguna()
    {
       global $connect;
@@ -252,6 +299,63 @@ require_once "connection.php";
                $response = array(
                   'status' => 0,
                   'message' =>'Username atau Password salah'
+               );
+            }
+         }
+         else
+         {
+            $response = array(
+               'status' => 2,
+               'message' =>'Data tidak lengkap'
+            );
+         }
+      }
+      else
+      {
+         $response = array(
+            'status' => 0,
+            'message' =>'Wrong Parameter'
+         );
+      }
+
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+
+   function login_hardware() {
+      global $connect;   
+      $check = array(
+         'pengguna_hardware_id' => ''
+      );
+
+      $check_match = count(array_intersect_key($_POST, $check));
+      
+      if($check_match == count($check)){
+         $penggunaHwId = $_POST["pengguna_hardware_id"];
+
+         if(!empty($penggunaHwId)) 
+         {
+            $result = mysqli_query($connect, "SELECT * FROM pengguna
+            WHERE
+            pengguna_hardware_id = '$_POST[pengguna_hardware_id]'");
+               
+            if($result->num_rows > 0)
+            {
+               while($row = mysqli_fetch_object($result))
+               {
+                  $data = $row;
+               } 
+               $response = array(
+                  'status' => 1,
+                  'message' =>'Login Success',
+                  'data' => $data
+               );
+            }
+            else
+            {
+               $response = array(
+                  'status' => 0,
+                  'message' =>'Biometric belum terdaftar!'
                );
             }
          }
