@@ -355,7 +355,7 @@ require_once "connection.php";
             {
                $response = array(
                   'status' => 0,
-                  'message' =>'Biometric belum terdaftar!'
+                  'message' =>'Biometric belum terdaftar! Masuk dengan username dan password terlebih dahulu!'
                );
             }
          }
